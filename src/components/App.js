@@ -4,6 +4,10 @@ import configureStore from './store/configureStore';
 import { addExpense } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
 import getVisibleExpenses from './selectors/expenses';
+import { Provider } from 'react-redux';
+import ExpenseList from './ExpenseList';
+import ExpenseListItem from './ExpenseListItem';
+import ExpenseListFilters from './ExpenseListFilters';
 
 // const reducer = (state = { count: 0 }, action) => {
 //     switch (action.type) {
@@ -50,15 +54,25 @@ import getVisibleExpenses from './selectors/expenses';
 // })
 
 const store = configureStore();
-store.dispatch(addExpense({ description: 'Water Bill' }));
-store.dispatch(addExpense({ description: 'Gas Bill' }));
+store.dispatch(addExpense({ description: 'Water Bill', amount: 4500 }));
+store.dispatch(addExpense({ description: 'Rent bill', amount: 14500 }));
+store.dispatch(addExpense({ description: 'Gas Bill', amount: 2000 }));
+store.dispatch(setTextFilter('bill'))
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
 
 console.log(visibleExpenses);
+
 export default () => {
     return (
+
         <div>
+            <Provider store={store}>
+                <ExpenseListFilters />
+                <ExpenseList />
+
+
+            </Provider>
 
         </div>
     )
