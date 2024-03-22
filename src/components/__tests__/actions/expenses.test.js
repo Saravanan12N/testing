@@ -21,3 +21,21 @@ it('should setup edit expense action object', () => {
         }
     })
 })
+
+it('Test add expense ', () => {
+    const expenseData = {
+        description: 'Rent',
+        amount: 109500,
+        createdAt: 1000,
+        note: 'This was last month rent'
+    };
+
+    const actiob = addExpense(expenseData);
+    expect(actiob).toEqual({
+        type: 'ADD_EXPENSE',
+        expense: {
+            ...expenseData,
+            id: expect.any(String)
+        }
+    })
+})
